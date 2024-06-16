@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation"
 import { Toaster } from "react-hot-toast";
 
 export function Providers({children} : {children: React.ReactNode}) {
-    const pathname = usePathname()
-    const showNavbar = !['/login', '/register', '/new-post'].includes(pathname);
+    const pathname = usePathname();
+    const showNavbar = !['/login', '/register', '/new-post'].includes(pathname) && !pathname.startsWith('/p/');
 
     return (
         <div>
@@ -26,10 +26,11 @@ export function Providers({children} : {children: React.ReactNode}) {
             )}
             {!showNavbar && (
                 <div>
+                    <Navbar />
                     {children}
                 </div>
             )}
             <Toaster position="top-center" reverseOrder={false} />
         </div>
-    )
+    );
 }

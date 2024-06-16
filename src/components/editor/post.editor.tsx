@@ -98,7 +98,6 @@ export default function PostEditor() {
             />
         </div>
 
-        {/* <div dangerouslySetInnerHTML={{ __html: content }} /> */}
     </>
   );
 }
