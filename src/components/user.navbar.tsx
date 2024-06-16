@@ -30,7 +30,27 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
   if (!Array.isArray(navItems) || navItems.length === 0) {
     return null; // or handle empty case gracefully
   }
+  const handleLogout = async () => {
+    try {
+      const res = await fetch('http://localhost:8080/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email}),
+        credentials: 'include',
+        cache: 'no-cache'
+      })
+      if (!res.ok) {
+        throw new Error('Logout failed')
+      }
 
+      
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -62,7 +82,7 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem className='w-full flex justify-between items-center'>
-          <span>Logout</span>
+          <button className=' border-none' onClick={handleLogout}><span>Logout</span></button>
           <span><DoorClosed className='w-4 h-4' /></span>
         </DropdownMenuItem>
       </DropdownMenuContent>

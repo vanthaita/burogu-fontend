@@ -3,7 +3,7 @@
 
 import Navbar from "@/components/navbar";
 import { usePathname } from "next/navigation"
-
+import { Toaster } from "react-hot-toast";
 
 export function Providers({children} : {children: React.ReactNode}) {
     const pathname = usePathname()
@@ -12,7 +12,8 @@ export function Providers({children} : {children: React.ReactNode}) {
     return (
         <div>
             {showNarbar && <Navbar />}
-           {children}        
+                {children}   
+            <Toaster position="top-center" reverseOrder={false}/>
         </div>
     )
 }

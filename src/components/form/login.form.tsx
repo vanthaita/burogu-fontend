@@ -13,6 +13,7 @@ import {
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useAppContext } from '@/context/app.provider';
+import toast from 'react-hot-toast';
 
 
 const FormSchema = z.object({
@@ -56,8 +57,10 @@ export const LoginForm = () => {
             }
             const accessToken = await resultFormNextServer.json();
             setToken(accessToken.data.accessToken);
+            toast.success("Login successfully!");
         } catch (error) {
-        console.error('Error:', error);
+            console.error('Error:', error);
+            toast.error("Login failed!");
         }
     }
 

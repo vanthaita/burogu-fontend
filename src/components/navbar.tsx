@@ -29,7 +29,7 @@ const Navbar = () => {
                     </Button>
                     <UserNav
                         name={''}
-                        email={''}
+                        email={'thai@gmail.com'}
                         image={'https://github.com/shadcn.png'}
                     />
                     <ThemeToggle />
