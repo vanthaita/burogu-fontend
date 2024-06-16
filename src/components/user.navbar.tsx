@@ -5,6 +5,8 @@ import { Button } from './ui/button'
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar'
 import { CreditCard, DoorClosed, Home, Settings } from 'lucide-react'
 import Link from 'next/link'
+import toast from 'react-hot-toast'
+import { useAppContext } from '@/context/app.provider'
 
 interface NavItem {
   name: string
@@ -27,10 +29,13 @@ export const navItems: NavItem[] = [
 ];
 
 const UserNav = ({ name, email, image }: { name: string, email: string, image: string }) => {
+  const {logout} = useAppContext();
   if (!Array.isArray(navItems) || navItems.length === 0) {
     return null; // or handle empty case gracefully
   }
+  
   const handleLogout = async () => {
+    console.log('logged out')
     try {
       const res = await fetch('http://localhost:8080/logout', {
         method: 'POST',
@@ -39,18 +44,29 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
         },
         body: JSON.stringify({email}),
         credentials: 'include',
-        cache: 'no-cache'
-      })
-      if (!res.ok) {
-        throw new Error('Logout failed')
-      }
-
+        cache: 'no-cache',
+      });
       
-
+      if (!res.ok) {
+        throw new Error('Logout failed');
+      }
+      const resultFormNextServer = await fetch('http://localhost:3000/api/auth/logout', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (!resultFormNextServer.ok) {
+        throw new Error('Login failed');
+      }
+      logout()
+      toast.success("Logged out!")
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

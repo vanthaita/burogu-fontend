@@ -15,13 +15,13 @@ const Profile = () => {
                     'Content-Type': 'application/json',
                 },
                 cache: 'no-store',
-                credentials: 'include' // This is necessary to include cookies
+                credentials: 'include' 
             });
 
             if (!res.ok) {
                 throw new Error('Error');
             }
-            const data = await res.text(); // Read response body as text
+            const data = await res.text(); 
             setPage(data);
         } catch (error) {
             console.error('Error:', error);

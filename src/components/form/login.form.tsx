@@ -14,7 +14,7 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { useAppContext } from '@/context/app.provider';
 import toast from 'react-hot-toast';
-
+import { useRouter } from 'next/navigation';
 
 const FormSchema = z.object({
     email: z.string().min(1, 'Email is required').email('Invalid email'),
@@ -22,7 +22,8 @@ const FormSchema = z.object({
 })
 
 export const LoginForm = () => {
-    const {setToken, token} = useAppContext();
+    const router = useRouter();
+    const {setToken, token, setUser, user} = useAppContext();
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -44,6 +45,7 @@ export const LoginForm = () => {
               throw new Error('Login failed');
             }
             const data = await res.json();
+            console.log(data);
             const resultFormNextServer = await fetch('http://localhost:3000/api/auth', {
                 method: 'POST',
                 headers: {
@@ -57,13 +59,15 @@ export const LoginForm = () => {
             }
             const accessToken = await resultFormNextServer.json();
             setToken(accessToken.data.accessToken);
+            setUser(data.user);
             toast.success("Login successfully!");
+            return router.push('/');
         } catch (error) {
             console.error('Error:', error);
             toast.error("Login failed!");
         }
-    }
-
+    }  
+    console.log(user);
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className=' w-full'>
