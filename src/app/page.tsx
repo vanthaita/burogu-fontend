@@ -1,6 +1,6 @@
+import CardPost from "@/components/card/card.post";
 import HomeNavbar from "@/components/home.navbar";
-
-
+import Posts from "@/components/post/get.all.post";
 export default function Home() {
   return (
     <div className=" max-w-[120vh]">
@@ -8,8 +8,8 @@ export default function Home() {
         <HomeNavbar />
       </div>
       {/* Create list post unlimit scroll */}
-      <div className="">
-
+      <div className="mt-4 w-full">
+        <Posts />
       </div>
     </div>
   );
