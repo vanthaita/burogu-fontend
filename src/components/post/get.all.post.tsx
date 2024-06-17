@@ -1,10 +1,11 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import CardPost from '../card/card.post';
-
+import SkeletonPosts from '../skeleton.posts';
+import { PostType } from '@/types/type';
 const Posts = () => {
-    const [posts, setPosts] = useState([]);
-
+    const [posts, setPosts] = useState<PostType[]>([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         const handleGetPosts = async () => {
             try {
@@ -23,12 +24,21 @@ const Posts = () => {
                 setPosts(data.posts);
                 console.log(data.posts); 
             } catch (err) {
+                setLoading(true);
                 console.error(err);
+            } finally {
+                setLoading(false);
             }
         };
 
         handleGetPosts();
     }, []);
+
+    if(loading) {
+        return <SkeletonPosts />
+    }   
+
+    
 
     return (
         <div className=' space-y-6'>
@@ -41,6 +51,7 @@ const Posts = () => {
                         tags={post?.category}
                         time={post?.createdAt}
                         postId={post?.id}
+                        countComments={post?.comments.length}
                     />
                 </div>
             ))}

@@ -5,7 +5,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import toast from 'react-hot-toast';
 import { useAppContext } from '@/context/app.provider';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function PostEditor() {
     const editorRef = useRef<Editor | null>(null);
@@ -38,6 +38,7 @@ export default function PostEditor() {
             toast.success("Post added successfully!");
             return router.push('/')
         } catch (err) {
+            toast.error("Error creating comment");
             console.log(err);
         }
     }  
@@ -91,9 +92,10 @@ export default function PostEditor() {
                     'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
                     'media', 'table', 'emoticons', 'help'
                 ],
+                ai_request: (request: any, respondWith: any) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
                 toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons',
                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                }}
+            }}
                 
             />
         </div>

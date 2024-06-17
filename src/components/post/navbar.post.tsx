@@ -5,8 +5,8 @@ import { Button } from '../ui/button'
 
 const NavbarPost = () => {
   return (
-    <nav className='grid items-start gap-2 rounded-md'>
-        <div className='flex flex-col space-y-2'>
+    <nav className='grid items-start gap-2 rounded-md right-0 sticky top-20'>
+        <div className='flex flex-col space-y-2 '>
             <Button variant="outline" className='rounded-full w-12 h-12 bg-card hover:bg-gray-100'>
                 <ChevronUp />
             </Button>

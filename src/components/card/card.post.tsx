@@ -5,13 +5,14 @@ import { Bookmark } from 'lucide-react';
 import { Button } from '../ui/button';
 import { MessageCircle } from 'lucide-react';
 import Link from 'next/link';
-const CardPost = ({authorName, time, title, tags, authorId, postId} : {
+const CardPost = ({authorName, time, title, tags, authorId, postId, countComments} : {
     authorName: string,
     time: string,
     title: string,
     tags: string,
     authorId: string,
-    postId: string
+    postId: string,
+    countComments: number
 }) => {
   return (
     <Card className='relative w-full'>
@@ -36,7 +37,7 @@ const CardPost = ({authorName, time, title, tags, authorId, postId} : {
         </div>
       </CardHeader>
       <CardFooter className='flex justify-between items-center'>
-        <Button variant="outline" className='border-none bg-card hover:bg-gray-100'><MessageCircle className='h-4 w-4' /> 2 Comments</Button>
+        <Button variant="outline" className='border-none bg-card hover:bg-gray-100 gap-x-4 flex'><MessageCircle className='h-4 w-4' /> {countComments} Comments</Button>
         <Button variant='outline' className='border-none bg-card hover:bg-gray-100'>
           <Bookmark />
         </Button>

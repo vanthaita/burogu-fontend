@@ -3,7 +3,7 @@ import HomeNavbar from "@/components/home.navbar";
 import Posts from "@/components/post/get.all.post";
 export default function Home() {
   return (
-    <div className=" max-w-[120vh]">
+    <div className=" max-w-[120vh] mb-10">
       <div className=" w-1/2">
         <HomeNavbar />
       </div>
@@ -11,6 +11,7 @@ export default function Home() {
       <div className="mt-4 w-full">
         <Posts />
       </div>
+
     </div>
   );
 }

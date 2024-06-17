@@ -1,19 +1,24 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
-import { AwardIcon, Bookmark, MessageCircle } from 'lucide-react';
-import { Button } from '../ui/button';
-import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import CommentEditor from '../editor/comment.editor';
+import { useAppContext } from '@/context/app.provider';
+import SkeletonPost from '../skeleton.post';
+import { PostType } from '@/types/type';
+import { Comments } from '@/types/type';
+import { Author } from '@/types/type';
 
 const Post = () => {
     const router = useParams();
-    const { id:postId } = router;
-    const [post, setPost] = useState(null);
-    console.log(postId);
+    const { id: postId } = router;
+    const [post, setPost] = useState<PostType | null>(null);
+    const { user } = useAppContext();
+    const [listComment, setListComment] = useState<Comments[]>([]);
+
     useEffect(() => {
-        const handelGetPost = async () => {
+        const handleGetPost = async () => {
             try {
                 const res = await fetch('http://localhost:8080/get-post', {
                     method: 'POST',
@@ -24,65 +29,71 @@ const Post = () => {
                 });
                 const data = await res.json();
                 setPost(data.post);
+                setListComment(data.post.comments);
+                console.log(data.post);
             } catch (err) {
                 console.log(err);
             }
         };
-        
+
         if (postId) {
-            handelGetPost();
+            handleGetPost();
         }
     }, [postId]);
 
+    const addComment = (newComment: Comments) => {
+        setListComment((prevComments) => [...prevComments, newComment]);
+    };
+
     if (!post) {
-        return <div>Loading...</div>;
+        return <SkeletonPost />;
     }
 
-    const { author, createdAt,title, category, content, comments } = post;
+    const { author, createdAt, title, category, content } = post;
+    const time = new Date(createdAt).toLocaleString();
 
     return (
-        <Card className='relative w-[80%]'>
-            <CardHeader className='flex flex-row space-x-2'>
-                <div>
+        <Card className='relative mb-10 container'>
+            <CardHeader className='flex flex-col space-x-2'>
+                <div className='space-y-2 flex space-x-4 items-center'>
                     <Avatar className='h-10 w-10 rounded-full'>
                         <AvatarImage src={'https://github.com/shadcn.png'} alt="" />
                         <AvatarFallback>
-                            {/* {authorName} */}
+                            {author.id}
                         </AvatarFallback>
                     </Avatar>
-                </div>
-                <div className='space-y-2'>
                     <div className='flex flex-col gap-y-1 text-sm'>
-                        <span>{author.username || 'Unknown Author'}</span>
-                        <span className='text-xs'>{ createdAt || 'Unknown Time'}</span>
+                        <span className='font-bold text-2xl'>{author.username}</span>
+                        <span className='text-xs'>{time}</span>
                     </div>
-                    <Link href={`/p/${postId}`}>
-                        <CardTitle className='cursor-pointer hover:text-blue-500'>
-                            {title || "Untitled Post"}
-                        </CardTitle>
-                    </Link>
-                    <CardDescription>{category || "#untagged"}</CardDescription>
                 </div>
+                <CardTitle className='text-4xl'>
+                    {title || "Untitled Post"}
+                </CardTitle>
+                <CardDescription>{category || "#untagged"}</CardDescription>
             </CardHeader>
             <CardContent>
                 <div dangerouslySetInnerHTML={{ __html: content }} />
             </CardContent>
             <div className='p-4'>
                 <h3 className='text-lg font-semibold'>Top Comments</h3>
-                <ul className='space-y-2'>
-                    {/* {comments.map((comment: any, index: number) => (
-                        <li key={index} className='border-b pb-2'>
-                            <div className='flex items-center space-x-2'>
-                                <Avatar className='h-6 w-6 rounded-full'>
-                                    <AvatarImage src={comment.avatar || 'https://github.com/shadcn.png'} alt="" />
-                                    <AvatarFallback>{comment.authorName.charAt(0)}</AvatarFallback>
+                <div className='space-y-2 mt-4'>
+                    {listComment.map((comment, index) => (
+                        <div key={index} className='gap-x-4 flex'>
+                            <div>
+                                <Avatar className='h-8 w-8 rounded-full'>
+                                    <AvatarImage src={'https://github.com/shadcn.png'} alt="" />
+                                    <AvatarFallback></AvatarFallback>
                                 </Avatar>
-                                <span className='text-sm font-medium'>{comment.authorName}</span>
                             </div>
-                            <p className='text-sm'>{comment.text}</p>
-                        </li>
-                    ))} */}
-                </ul>
+                            <div className='border w-full rounded-md px-6 py-4'>
+                                <span className='text-lg font-medium'>{comment?.author?.username}</span>
+                                <div dangerouslySetInnerHTML={{ __html: comment.content }} />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <CommentEditor addComment={addComment} postId={postId} authorId={user?.id} />
             </div>
         </Card>
     );
