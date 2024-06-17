@@ -5,6 +5,7 @@ import { Bookmark } from 'lucide-react';
 import { Button } from '../ui/button';
 import { MessageCircle } from 'lucide-react';
 import Link from 'next/link';
+import { calculatorTime } from '@/utils/calculator.time';
 const CardPost = ({authorName, time, title, tags, authorId, postId, countComments} : {
     authorName: string,
     time: string,
@@ -27,7 +28,7 @@ const CardPost = ({authorName, time, title, tags, authorId, postId, countComment
         <div className='space-y-2'>
           <div className='flex flex-col gap-y-1 text-sm'>
             <span>{authorName || 'Ta Thai'}</span>
-            <span className='text-xs'>{time || '10 Hours'}</span>
+            <span className='text-xs'>{calculatorTime(time) || '10 Hours'}</span>
           </div>
             <Link href={`/p/${postId}`}>
                 <CardTitle className=' cursor-pointer hover:text-blue-500'>{title || "Difference between Docker, Kubernetes, and Podman for System Design Interview?"}</CardTitle>
