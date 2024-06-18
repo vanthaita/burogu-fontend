@@ -1,8 +1,8 @@
 
 
 import React from 'react';
-import { Skeleton } from './ui/skeleton';
-import { Card } from './ui/card';
+import { Skeleton } from '../ui/skeleton';
+import { Card } from '../ui/card';
 const SkeletonPost = () => {
     return (
         <Card className="animate-pulse space-y-4 bg-white border p-6">

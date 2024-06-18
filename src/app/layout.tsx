@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme.provider";
 import { Providers } from "@/utils/providers";
 import AppProvider from "@/context/app.provider";
 import { cookies } from "next/headers";
-
+import useAuth from "@/hook/useAuth";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default function RootLayout({
   const CookieStore = cookies();
   const accessToken = CookieStore.get('token');
   const getUser = CookieStore.get('user');
-
+  
   let user = null;
   if (getUser?.value) {
     try {

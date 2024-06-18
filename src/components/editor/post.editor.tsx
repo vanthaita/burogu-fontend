@@ -6,15 +6,17 @@ import { Input } from '../ui/input';
 import toast from 'react-hot-toast';
 import { useAppContext } from '@/context/app.provider';
 import { useRouter } from 'next/navigation';
-
+import { Loader2 } from 'lucide-react';
 export default function PostEditor() {
     const editorRef = useRef<Editor | null>(null);
     const [title, setTitle] = useState('');
     const [tags, setTags] = useState('');
     const {user} = useAppContext();
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     // const content = editorRef.current?.getContent();
     const post_editor =  async () => {
+        setIsLoading(true);
         try {
             const content = editorRef.current?.getContent();
             const res = await fetch('http://localhost:8080/add-post', {
@@ -40,6 +42,8 @@ export default function PostEditor() {
         } catch (err) {
             toast.error("Error creating comment");
             console.log(err);
+        } finally {
+            setIsLoading(false);
         }
     }  
 
@@ -53,6 +57,7 @@ export default function PostEditor() {
                     placeholder='Title'
                     className='placeholder:text-black'
                     value={title}
+                    required
                     onChange={(e) => setTitle(e.target.value)}
                 />
                 <div className='flex gap-x-2'>
@@ -60,6 +65,7 @@ export default function PostEditor() {
                         placeholder='Tags your post' 
                         className='placeholder:text-black'
                         value={tags}
+                        required
                         onChange={(e) => setTags(e.target.value)}
                     />
                     <Button variant='outline'
@@ -72,7 +78,11 @@ export default function PostEditor() {
                         onClick={post_editor}
                         className="bg-[#000] text-white cursor-pointer border text-lg rounded-lg"
                     >
-                        <span>Post</span>
+                        {isLoading ? (
+                            <Loader2 className="w-4 h-4 animate-spin"/>
+                        ) : (
+                            <span>Post</span>
+                        )}
                     </Button>
                 </div>
             </div>
@@ -80,7 +90,6 @@ export default function PostEditor() {
                 id='post-editor'
                 apiKey='ap9npj8z6mta8536ou43n89sbp40jxsprx51ci5wntqvzl4n'
                 onInit={(evt: any, editor: any) => editorRef.current = editor}
-                initialValue="<p>This is the initial content of the editor.</p>"
                 init={{
                 height: 500,
                 menu: {
@@ -94,10 +103,10 @@ export default function PostEditor() {
                 ],
                 ai_request: (request: any, respondWith: any) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
                 toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons',
-                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px } .highlight {background-color: #fff877;',
             }}
-                
             />
+
         </div>
 
     </>

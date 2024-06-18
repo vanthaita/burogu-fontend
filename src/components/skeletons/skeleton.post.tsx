@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Skeleton } from './ui/skeleton';
+import { Skeleton } from '../ui/skeleton';
 const SkeletonPost = () => {
     return (
         <Skeleton className="animate-pulse space-y-4">

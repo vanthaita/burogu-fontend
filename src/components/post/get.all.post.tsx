@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import CardPost from '../card/card.post';
-import SkeletonPosts from '../skeleton.posts';
+import SkeletonPosts from '../skeletons/skeleton.posts';
 import { PostType } from '@/types/type';
 const Posts = () => {
     const [posts, setPosts] = useState<PostType[]>([]);

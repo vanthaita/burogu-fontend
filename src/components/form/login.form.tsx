@@ -15,6 +15,9 @@ import { Button } from '../ui/button';
 import { useAppContext } from '@/context/app.provider';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { SubmitLoginButton } from '../submit.button';
+import { useState } from 'react';
 
 const FormSchema = z.object({
     email: z.string().min(1, 'Email is required').email('Invalid email'),
@@ -24,6 +27,8 @@ const FormSchema = z.object({
 export const LoginForm = () => {
     const router = useRouter();
     const {setToken, token, setUser, user} = useAppContext();
+    const [isLoading, setIsLoading] = useState<Boolean>(false);
+
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -33,6 +38,7 @@ export const LoginForm = () => {
     });
 
     const onSubmit = async (value: z.infer<typeof FormSchema>) => {
+        setIsLoading(true);
         try {
             const res = await fetch('http://localhost:8080/login', {
               method: 'POST',
@@ -65,6 +71,8 @@ export const LoginForm = () => {
         } catch (error) {
             console.error('Error:', error);
             toast.error("Login failed!");
+        } finally {
+            setIsLoading(false);
         }
     }  
     console.log(user);
@@ -101,7 +109,10 @@ export const LoginForm = () => {
                         </FormItem>
                         )}
                     />
-                    <Button className='w-full mt-6 bg-blue-700' type='submit' >Log in</Button>
+                    <SubmitLoginButton isLoading={isLoading} />
+                    <div className=' flex items-center justify-center'>
+                        <span>Don&apos;t have an account? <Link href="/register"><span className='hover:underline text-blue-500'>Register!</span></Link></span>
+                    </div>
                 </div>
             </form>
         </Form>

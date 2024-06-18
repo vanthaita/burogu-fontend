@@ -11,9 +11,9 @@ export async function POST(request: Request) {
     }
 
     const headers = new Headers();
-    headers.append('Set-Cookie', `token=${accessToken}; Path=/; HttpOnly; Max-Age=${24 * 60 * 60}`);
-    headers.append('Set-Cookie', `refreshToken=${refreshToken}; Path=/; HttpOnly; Max-Age=${7 * 24 * 60 * 60}`); // 7 days for refresh token
-    headers.append('Set-Cookie', `user=${user}; Path=/; HttpOnly; Max-Age=${7 * 24 * 60 * 60}`); // 7 days for refresh token
+    headers.append('Set-Cookie', `token=${accessToken}; Path=/; HttpOnly; Max-Age=${15 * 60}`); // 15m
+    headers.append('Set-Cookie', `refreshToken=${refreshToken}; Path=/; HttpOnly; Max-Age=${24 * 60 * 60}`); // 1d
+    headers.append('Set-Cookie', `user=${user}; Path=/; HttpOnly; Max-Age=${24 * 60 * 60}`); // 1d
     
     return new Response(JSON.stringify({ data }), {
         status: 200,

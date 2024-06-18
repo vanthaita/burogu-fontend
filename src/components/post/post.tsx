@@ -4,10 +4,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui
 import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
 import CommentEditor from '../editor/comment.editor';
 import { useAppContext } from '@/context/app.provider';
-import SkeletonPost from '../skeleton.post';
+import SkeletonPost from '../skeletons/skeleton.post';
 import { Comments, PostType } from '@/types/type';
 import { Author } from '@/types/type';
 import { calculatorTime } from '@/utils/calculator.time';
+import parse from 'html-react-parser'
 
 const Post = ({
     postId,
@@ -52,14 +53,16 @@ const Post = ({
                 </CardTitle>
                 <CardDescription>{category || "#untagged"}</CardDescription>
             </CardHeader>
-            <CardContent>
-                <div className='break-words' style={{ wordBreak: 'break-word', whiteSpace: 'normal' }} dangerouslySetInnerHTML={{ __html: content }} />
+            <CardContent className=' container'>
+                <div className='prose prose-lg break-words overflow-hidden' >
+                    {parse(post.content)}
+                </div>
             </CardContent>
             <div className='p-4'>
                 <h3 className='text-lg font-semibold'>Top Comments</h3>
                 <div className='space-y-2 mt-4'>
-                    {listComment.map((comment: any, index: any) => (
-                        <div key={index} className='gap-x-4 flex'>
+                    {listComment.map((comment: any) => (
+                        <div key={comment.id} className='gap-x-4 flex'>
                             <div>
                                 <Avatar className='h-8 w-8 rounded-full'>
                                     <AvatarImage src={'https://github.com/shadcn.png'} alt="" />
@@ -69,10 +72,7 @@ const Post = ({
                             <div className='border w-full rounded-md px-6 py-4 break-words' style={{ wordBreak: 'break-word', whiteSpace: 'normal' }}>
                                 <span className='text-lg font-medium'>{comment?.author?.username}</span>
                                 <div className="max-w-[50%]">
-                                    <div 
-                                        dangerouslySetInnerHTML={{ __html: comment.content }} 
-                                        className="prose prose-sm" 
-                                    />
+                                    {parse(comment.content)} 
                                 </div>
                             </div>
                         </div>
