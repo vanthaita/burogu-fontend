@@ -2,14 +2,12 @@
 
 import DashboardNavbar from "@/components/dashboard.navbar";
 import Navbar from "@/components/navbar";
-import useAuth from "@/hook/useAuth";
 import { usePathname } from "next/navigation"
 import { Toaster } from "react-hot-toast";
 
 export function Providers({children} : {children: React.ReactNode}) {
     const pathname = usePathname();
     const showNavbar = !['/login', '/register', '/new-post'].includes(pathname) && !pathname.startsWith('/p/') && !pathname.startsWith('/u/');
-    useAuth();
     return (
         <div>
             {showNavbar ? (

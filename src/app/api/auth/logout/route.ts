@@ -1,9 +1,10 @@
+import { cookies } from "next/headers";
 export async function GET(request: Request) {
+    cookies().delete('token');
+    cookies().delete('user');
+    cookies().delete('refreshToken');
     return Response.json("Logut successfully!", {
         status: 200,
-        headers: {
-            'Set-Cookie': `token=; Path=/; HttpOnly; Max-Age=${24 * 60 * 60 * 1000}`
-        }
     });
 }
 

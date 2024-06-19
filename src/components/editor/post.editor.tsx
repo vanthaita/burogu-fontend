@@ -55,7 +55,7 @@ export default function PostEditor() {
             <div className='space-y-2'>
                 <Input 
                     placeholder='Title'
-                    className='placeholder:text-black'
+                    className='placeholder:text-primary'
                     value={title}
                     required
                     onChange={(e) => setTitle(e.target.value)}
@@ -63,18 +63,19 @@ export default function PostEditor() {
                 <div className='flex gap-x-2'>
                     <Input 
                         placeholder='Tags your post' 
-                        className='placeholder:text-black'
+                        className='placeholder:text-primary'
                         value={tags}
                         required
                         onChange={(e) => setTags(e.target.value)}
                     />
                     <Button variant='outline'
-                    
+
                         className="text-lg rounded-lg border-blue-700 hover:bg-blue-500 hover:text-white" 
                     >
                         <span>Save post</span>
                     </Button>
                     <Button
+                        disabled={isLoading}
                         onClick={post_editor}
                         className="bg-[#000] text-white cursor-pointer border text-lg rounded-lg"
                     >
@@ -88,7 +89,7 @@ export default function PostEditor() {
             </div>
             <Editor
                 id='post-editor'
-                apiKey='ap9npj8z6mta8536ou43n89sbp40jxsprx51ci5wntqvzl4n'
+                apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
                 onInit={(evt: any, editor: any) => editorRef.current = editor}
                 init={{
                 height: 500,

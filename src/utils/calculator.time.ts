@@ -2,7 +2,6 @@ export function calculatorTime(time: string) {
     const now = new Date();
     const past = new Date(time);
     const diff = now.getTime() - past.getTime();
-    console.log(diff);
     const s = Math.floor(diff / 1000);
     const m = Math.floor(s / 60);
     const h = Math.floor(m / 60);

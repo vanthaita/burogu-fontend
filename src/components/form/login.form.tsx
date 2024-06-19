@@ -51,7 +51,6 @@ export const LoginForm = () => {
               throw new Error('Login failed');
             }
             const data = await res.json();
-            console.log(data);
             const resultFormNextServer = await fetch('http://localhost:3000/api/auth', {
                 method: 'POST',
                 headers: {
@@ -75,7 +74,6 @@ export const LoginForm = () => {
             setIsLoading(false);
         }
     }  
-    console.log(user);
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className=' w-full'>

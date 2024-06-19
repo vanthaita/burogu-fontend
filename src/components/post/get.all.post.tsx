@@ -52,6 +52,7 @@ const Posts = () => {
                         time={post?.createdAt}
                         postId={post?.id}
                         countComments={post?.comments.length}
+                        countVote={post?.votes.length}
                     />
                 </div>
             ))}

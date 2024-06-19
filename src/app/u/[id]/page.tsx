@@ -87,6 +87,7 @@ const Page = () => {
                 <Button className={`ml-auto  ${checkFriend ? 'bg-gray-500 hover:bg-gray-600' : 'bg-blue-500'} gap-x-4 text-primary px-4 py-2 rounded-md hover:bg-blue-600
                   ${ user?.id === userId && 'hidden'}
                 `}
+                  disabled={isLoading as boolean}
                   onClick={handleFollow}
                 >
                   {isLoading ? (
@@ -123,6 +124,7 @@ const Page = () => {
                           time={post?.createdAt}
                           postId={post?.id}
                           countComments={post?.comments.length}
+                          countVote={post?.votes.length}
                       />
                     </div>
                   )) : (

@@ -4,10 +4,13 @@ import { Editor } from '@tinymce/tinymce-react';
 import { Button } from '../ui/button';
 import toast from 'react-hot-toast';
 import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
+import { Loader2 } from 'lucide-react';
 
 export default function CommentEditor({postId, authorId, addComment} : {postId: any, authorId: any, addComment: any}) {
     const editorRef = useRef<Editor | null>(null);
+    const [isLoading, setIsLoading] = useState<Boolean>(false)
     const post_comment =  async () => {
+        setIsLoading(true)
         try {
             const content = editorRef.current?.getContent();
             const res = await fetch('http://localhost:8080/add-comment', {
@@ -32,6 +35,8 @@ export default function CommentEditor({postId, authorId, addComment} : {postId: 
             toast.success("Post comment successfully!");
         } catch (err) {
             console.log(err);
+        } finally {
+            setIsLoading(false);
         }
     }  
 
@@ -48,7 +53,7 @@ export default function CommentEditor({postId, authorId, addComment} : {postId: 
             <div className='w-full'>
                 <Editor
                     id='post-editor'
-                    apiKey='ap9npj8z6mta8536ou43n89sbp40jxsprx51ci5wntqvzl4n'
+                    apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
                     onInit={(evt: any, editor: any) => editorRef.current = editor}
                     init={{
                         height: 300,
@@ -59,9 +64,17 @@ export default function CommentEditor({postId, authorId, addComment} : {postId: 
                 <div className='flex w-full justify-end mt-2'>
                     <Button variant='outline'
                         onClick={post_comment}
+                        disabled={isLoading as boolean}
                         className="text-lg rounded-lg border-blue-700 hover:bg-blue-500 hover:text-white" 
                     >
-                        <span>Post comment</span>
+                        {isLoading ? (
+                            <>
+                            <Loader2 className="w-4 h-4 animate-spin"/>
+                            <span className='ml-4 '>Loading...</span>
+                            </>
+                        ) : (
+                            <span>Post comment</span>
+                        )}
                     </Button>
                 </div>
             </div>

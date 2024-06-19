@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, DropdownMenuItem } from './ui/dropdown-menu'
 import { Button } from './ui/button'
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar'
@@ -22,27 +22,22 @@ export const navItems: NavItem[] = [
     name: 'Create Post',
     href: '/new-post',
   },
-  {
-    name: 'Setting',
-    href: '/setting',
-  }
 ];
 
 const UserNav = ({ name, email, image }: { name: string, email: string, image: string }) => {
   const {logout} = useAppContext();
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
   if (!Array.isArray(navItems) || navItems.length === 0) {
-    return null; // or handle empty case gracefully
+    return null; 
   }
-  
   const handleLogout = async () => {
-    console.log('logged out')
+    setIsLoading(true);
     try {
       const res = await fetch('http://localhost:8080/logout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({email}),
         credentials: 'include',
         cache: 'no-cache',
       });
@@ -64,11 +59,14 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
       toast.success("Logged out!")
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <DropdownMenu>
+
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className='relative h-10 w-10 rounded-full'>
           <Avatar className='h-10 w-10 rounded-full'>
@@ -89,8 +87,8 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           {navItems.map((item, index) => (
-            <DropdownMenuItem key={index}>
-              <Link href={item.href} className='w-full flex justify-between items-center'>
+            <DropdownMenuItem key={index} className=''>
+              <Link href={item.href} className='w-full flex justify-between items-center  '>
                 <span>{item.name}</span>
               </Link>
             </DropdownMenuItem>

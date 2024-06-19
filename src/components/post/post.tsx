@@ -6,7 +6,6 @@ import CommentEditor from '../editor/comment.editor';
 import { useAppContext } from '@/context/app.provider';
 import SkeletonPost from '../skeletons/skeleton.post';
 import { Comments, PostType } from '@/types/type';
-import { Author } from '@/types/type';
 import { calculatorTime } from '@/utils/calculator.time';
 import parse from 'html-react-parser'
 

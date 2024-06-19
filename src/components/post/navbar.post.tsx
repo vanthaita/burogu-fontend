@@ -17,7 +17,7 @@ const NavbarPost = ({
   const { user } = useAppContext();
 
   const handleVote = async (voteType: number) => {
-    if (vote === voteType) return; // Prevent double voting
+    if (vote === voteType) return; 
     setVote(voteType);
     try {
       const res = await fetch('http://localhost:8080/vote', {

@@ -20,6 +20,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cookies": "^0.9.1",
+    "date-fns": "^3.6.0",
     "html-react-parser": "^5.1.10",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.395.0",

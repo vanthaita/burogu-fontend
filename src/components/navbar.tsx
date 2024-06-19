@@ -24,8 +24,8 @@ const Navbar = () => {
                         <Bell className='w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6' />
                     </Button>
                     <UserNav
-                        name={''}
-                        email={'thai@gmail.com'}
+                        name={user.username}
+                        email={user.email}
                         image={'https://github.com/shadcn.png'}
                     />
                     <ThemeToggle />

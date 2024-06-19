@@ -1,7 +1,6 @@
 'use client';
 import React, { useContext, useState, createContext, ReactNode } from "react";
 
-// Define the User interface
 interface User {
     createdAt: string;
     email: string;
@@ -11,7 +10,6 @@ interface User {
     username: string;
 }
 
-// Define the context properties interface
 interface AppContextProps {
     user: User | null;
     setUser: (user: User | null) => void;
@@ -20,10 +18,8 @@ interface AppContextProps {
     logout: () => void;
 }
 
-// Create the context with default values
 const AppContext = createContext<AppContextProps | undefined>(undefined);
 
-// Custom hook to use the context
 export const useAppContext = () => {
     const context = useContext(AppContext);
     if (!context) {
@@ -32,7 +28,6 @@ export const useAppContext = () => {
     return context;
 }
 
-// Define the provider's props interface
 interface AppProviderProps {
     children: ReactNode;
     initialUser?: User | null;
