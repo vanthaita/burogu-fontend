@@ -8,7 +8,7 @@ import { Loader2 } from 'lucide-react';
 import { useAppContext } from '@/context/app.provider';
 
 export default function CommentEditor({postId, authorId, addComment} : {postId: any, authorId: any, addComment: any}) {
-    const editorRef = useRef<Editor | null>(null);
+    const editorRef = useRef<any | null>(null);
     const [isLoading, setIsLoading] = useState<Boolean>(false)
     const {token} = useAppContext();
     const post_comment =  async () => {

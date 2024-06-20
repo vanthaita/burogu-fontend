@@ -8,7 +8,7 @@ import { useAppContext } from '@/context/app.provider';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 export default function PostEditor() {
-    const editorRef = useRef<Editor | null>(null);
+    const editorRef = useRef<any | null>(null);
     const [title, setTitle] = useState('');
     const [tags, setTags] = useState('');
     const {user, token} = useAppContext();
@@ -18,7 +18,7 @@ export default function PostEditor() {
     const post_editor =  async () => {
         setIsLoading(true);
         try {
-            const content = editorRef.current?.getContent();
+            const content = editorRef.current?.getContent(); 
             const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/add-post`, {
                 method: 'POST',
                 headers: {
