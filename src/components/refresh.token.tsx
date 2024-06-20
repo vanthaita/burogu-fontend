@@ -1,9 +1,11 @@
 'use client'
+import { useAppContext } from "@/context/app.provider";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const RefreshTokenAuth = () => {
     const router = useRouter();
+    const {token} = useAppContext()
     const handle = async () => {
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_NEXT_SERVER_URL}/api/auth/exp`, {
@@ -19,6 +21,7 @@ const RefreshTokenAuth = () => {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
+                      'authorization': `Bearer ${token}`,
                     },
                     credentials: 'include',
                     cache: 'no-cache',
