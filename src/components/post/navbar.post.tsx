@@ -14,16 +14,17 @@ const NavbarPost = ({
   setCountVote: React.Dispatch<React.SetStateAction<number>>,
 }) => {
   const [vote, setVote] = useState<number | null>(null);
-  const { user } = useAppContext();
+  const { user, token } = useAppContext();
 
   const handleVote = async (voteType: number) => {
     if (vote === voteType) return; 
     setVote(voteType);
     try {
-      const res = await fetch('http://localhost:8080/vote', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/vote`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ postId, userId: user?.id, voteType }),
       });

@@ -14,12 +14,12 @@ const Page = () => {
     const { id: userId } = router;
     const [profile, setProfile] = useState<any>();
     const [checkFriend, setCheckFriend] = useState(false);
-    const {user} = useAppContext()
+    const {user, token} = useAppContext()
     const [isLoading, setIsLoading] = useState<Boolean>(false);  
     useEffect(() => {
         const handleGetPost = async () => {
           try {
-            const res = await fetch('http://localhost:8080/u/get-user', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/u/get-user`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -47,16 +47,17 @@ const Page = () => {
 
     
     const handleFollow = async () => {
-        
         const action = checkFriend ? 'remove' : 'add';
         setIsLoading(true);
         try {
-          const res = await fetch('http://localhost:8080/follow', {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/follow`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              'authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({ followingId: profile.id, followerId: user?.id, action  }),
+            credentials: 'include',
           });
           const data = await res.json();
           console.log(data);
@@ -67,8 +68,6 @@ const Page = () => {
           setIsLoading(false);  
         }
     }
-    console.log(new Date(profile?.createdAt).toDateString())
-    console.log('created at', profile?.createdAt)
     return (
 
         <div className='container mt-10 p-4 rounded-md bg-white dark:bg-transparent mb-10'>

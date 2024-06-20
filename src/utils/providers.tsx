@@ -1,6 +1,7 @@
 'use client'
 
 import DashboardNavbar from "@/components/dashboard.navbar";
+import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { usePathname } from "next/navigation"
 import { Toaster } from "react-hot-toast";
@@ -26,8 +27,9 @@ export function Providers({children} : {children: React.ReactNode}) {
                 </>
             ) : (
                 <div>
-                    {pathname !== '/new-post' && pathname !== '/login' && pathname !== '/register' && <Navbar />}
+                    {pathname !== '/new-post' && pathname !== '/login' && pathname !== '/register' && <Navbar /> }
                     {children}
+                    {pathname !== '/login' && pathname !== '/register' && pathname !== '/new-post' && <Footer />}
                 </div>
             )}
             <Toaster position="top-center" reverseOrder={false} />

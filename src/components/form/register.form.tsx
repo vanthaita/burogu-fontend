@@ -11,8 +11,6 @@ import {
     FormMessage,
 } from '../ui/form';
 import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import { cookies } from 'next/headers';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -40,7 +38,7 @@ export const RegisterForm = () => {
     const onSubmit = async (value: z.infer<typeof FormSchema>) => {
         setIsLoading(true);
         try {
-            const res = await fetch('http://localhost:8080/register', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/register`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

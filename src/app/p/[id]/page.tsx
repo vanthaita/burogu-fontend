@@ -18,7 +18,7 @@ const Page = () => {
   useEffect(() => {
     const handleGetPost = async () => {
       try {
-        const res = await fetch('http://localhost:8080/get-post', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/get-post`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const Page = () => {
             <div className='w-[30%] h-full'>
                 <div className="w-[30%] h-[40vh] md:absolute md:right-0 md:top-0 hidden md:block">
                     <div className='border rounded-md px-6 bg-white h-full'>
-                        Info
+
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@ export default function PostEditor() {
     const editorRef = useRef<Editor | null>(null);
     const [title, setTitle] = useState('');
     const [tags, setTags] = useState('');
-    const {user} = useAppContext();
+    const {user, token} = useAppContext();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     // const content = editorRef.current?.getContent();
@@ -19,10 +19,11 @@ export default function PostEditor() {
         setIsLoading(true);
         try {
             const content = editorRef.current?.getContent();
-            const res = await fetch('http://localhost:8080/add-post', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/add-post`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${token}`,
                 },
                 credentials: 'include',
                 body: JSON.stringify({

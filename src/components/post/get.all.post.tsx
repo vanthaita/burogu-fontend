@@ -9,7 +9,7 @@ const Posts = () => {
     useEffect(() => {
         const handleGetPosts = async () => {
             try {
-                const res = await fetch('http://localhost:8080/get-all-post', {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/get-all-post`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'

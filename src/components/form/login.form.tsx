@@ -40,7 +40,7 @@ export const LoginForm = () => {
     const onSubmit = async (value: z.infer<typeof FormSchema>) => {
         setIsLoading(true);
         try {
-            const res = await fetch('http://localhost:8080/login', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/login`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export const LoginForm = () => {
               throw new Error('Login failed');
             }
             const data = await res.json();
-            const resultFormNextServer = await fetch('http://localhost:3000/api/auth', {
+            const resultFormNextServer = await fetch(`${process.env.NEXT_PUBLIC_NEXT_SERVER_URL}/api/auth`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

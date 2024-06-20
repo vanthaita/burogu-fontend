@@ -5,18 +5,22 @@ import { Button } from '../ui/button';
 import toast from 'react-hot-toast';
 import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
 import { Loader2 } from 'lucide-react';
+import { useAppContext } from '@/context/app.provider';
 
 export default function CommentEditor({postId, authorId, addComment} : {postId: any, authorId: any, addComment: any}) {
     const editorRef = useRef<Editor | null>(null);
     const [isLoading, setIsLoading] = useState<Boolean>(false)
+    const {token} = useAppContext();
     const post_comment =  async () => {
         setIsLoading(true)
         try {
             const content = editorRef.current?.getContent();
-            const res = await fetch('http://localhost:8080/add-comment', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/add-comment`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${token}`,
+                    
                 },
                 credentials: 'include',
                 body: JSON.stringify({
