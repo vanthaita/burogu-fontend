@@ -1,24 +1,6 @@
 
 
-# Database Schema
 
-
-
-#Công nghệ sử dụng
-Backend Nodejs + expressjs
-Fontend Nextjs
-App Router
-Server và Client component
-API Routes và Middleware
-Xác thực dựa trên Cookie sử dụng JWT
-Giao diện được thiết kế bằng Tailwind CSS
-Các thành phần UI sử dụng Shadcn-UI
-Trình soạn thảo WYSIWYG sử dụng TinyMCE
-Forms sử dụng React-Hook-Forms
-Thông báo (Toasts) sử dụng React-Hot-Toast
-Xác thực sử dụng Zod
-Biểu tượng sử dụng Lucide-Icon
-Viết bằng TypeScript
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
