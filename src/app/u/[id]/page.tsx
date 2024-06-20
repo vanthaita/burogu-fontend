@@ -111,7 +111,7 @@ const Page = () => {
                   )}
                 </Button>
             </div>
-            <div className='mt-10 space-y-6 mb-10'>
+            <div className='mt-10 space-y-6 mb-10 h-full'>
                 <h2 className='text-xl font-bold'>Posts</h2>
                 {profile?.posts.length > 0 ? profile?.posts.map((post: any) => (
                   <div key={post.id}>
@@ -127,7 +127,9 @@ const Page = () => {
                       />
                     </div>
                   )) : (
-                    <p className='text-center text-gray-400'>No posts</p>
+                    <div className=' items-center justify-center flex min-h-[50vh]'>
+                      <p className='text-center text-3xl'>No posts</p>
+                    </div>
                   )}
             </div>
         </div>

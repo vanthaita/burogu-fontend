@@ -11,7 +11,7 @@ const CardPost = ({authorName, time, title, tags, authorId, postId, countComment
     authorName: string,
     time: string,
     title: string,
-    tags: string,
+    tags: string[],
     authorId: string,
     postId: string,
     countComments: number
@@ -41,7 +41,15 @@ const CardPost = ({authorName, time, title, tags, authorId, postId, countComment
                 <Link href={`/p/${postId}`}>
                   <CardTitle className=' cursor-pointer hover:text-blue-500'>{title}</CardTitle>
                 </Link>
-                <CardDescription className='text-xs'>{tags}</CardDescription>
+                <CardDescription className='text-xs'>
+                    <div className="flex flex-wrap gap-2">
+                        {tags.map((category: any, index: any) => (
+                            <span key={index + 1} className="px-2 py-1 bg-gray-200 text-gray-800 rounded-md text-sm">
+                                {category}
+                            </span>
+                        ))}
+                    </div>
+                </CardDescription>
               </div>
           </div>
       </CardHeader>

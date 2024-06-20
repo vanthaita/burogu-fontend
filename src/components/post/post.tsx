@@ -50,7 +50,15 @@ const Post = ({
                 <CardTitle className='text-4xl'>
                     {title || "Untitled Post"}
                 </CardTitle>
-                <CardDescription>{category || "#untagged"}</CardDescription>
+                <CardDescription>{
+                     <div className="flex flex-wrap gap-2">
+                        {post.category.map((category: any, index: any) => (
+                            <span key={index + 1} className="px-2 py-1 bg-gray-200 text-gray-800 rounded-md text-sm">
+                                {category}
+                            </span>
+                        ))}
+                    </div>
+                }</CardDescription>
             </CardHeader>
             <CardContent className='container'>
                 <div className='md:prose md:prose-lg break-words overflow-hidden' >

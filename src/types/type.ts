@@ -17,7 +17,7 @@ export interface PostType {
     id: string;
     title: string;
     content: string;
-    category: string;
+    category: string[];
     createdAt: Date;
     updatedAt: Date;
     author: Author;

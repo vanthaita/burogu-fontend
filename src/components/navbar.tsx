@@ -35,9 +35,11 @@ const Navbar = () => {
                     <Link href='/login'>
                         <Button className='text-sm md:text-base lg:text-lg border-none hover:underline hover:text-blue-700' variant='outline'>Log in</Button>
                     </Link>
-                    <Button variant='outline' className='border-blue-700 text-sm md:text-base lg:text-lg hover:underline hover:bg-blue-500 hover:text-white'>
-                        Create account
-                    </Button>
+                    <Link href='/register'>
+                        <Button variant='outline' className='border-blue-700 text-sm md:text-base lg:text-lg hover:underline hover:bg-blue-500 hover:text-white'>
+                            Create account
+                        </Button>
+                    </Link>
                 </div>  
                 )}
             </div>
