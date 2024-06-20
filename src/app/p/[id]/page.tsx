@@ -51,8 +51,8 @@ const Page = () => {
             </div>
             <div className='w-[30%] h-full'>
                 <div className="w-[30%] h-[40vh] md:absolute md:right-0 md:top-0 hidden md:block">
-                    <div className='border rounded-md px-6 bg-white h-full'>
-
+                    <div className='border rounded-md px-6 h-full'>
+                      {/* Quang cao */}
                     </div>
                 </div>
             </div>

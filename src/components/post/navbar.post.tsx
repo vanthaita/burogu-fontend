@@ -39,12 +39,14 @@ const NavbarPost = ({
     <nav className='grid items-start gap-2 rounded-md right-0 sticky top-20'>
       <div className='flex flex-col space-y-2 items-center '>
         <Button variant="outline" className={`w-14 h-14 rounded-full border-none ${vote === 1 ? 'border-blue-500 bg-blue-100' : ''}`}
+          disabled={vote === 1}
           onClick={() => handleVote(1)}
         >
           <ChevronUp />
         </Button>
             <span className='flex items-center'>{countVote}</span>
         <Button variant="outline" className={`w-14 h-14 rounded-full border-none ${vote === -1 ? 'border-blue-500 bg-blue-100' : ''}`}
+          disabled={vote === -1}
           onClick={() => handleVote(-1)}
         >
           <ChevronDown />

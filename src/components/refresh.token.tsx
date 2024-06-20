@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const RefreshTokenAuth = () => {
     const router = useRouter();
-    const {token} = useAppContext()
+    const {token, setToken} = useAppContext()
     const handle = async () => {
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_NEXT_SERVER_URL}/api/auth/exp`, {
@@ -16,32 +16,11 @@ const RefreshTokenAuth = () => {
                 credentials: 'include',
             });
             const data = await res.json();
-            if(data.exp === true) {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/logout`, {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      'authorization': `Bearer ${token}`,
-                    },
-                    credentials: 'include',
-                    cache: 'no-cache',
-                });
-                if (!res.ok) {
-                    throw new Error('Logout failed');
-                }
-                const resultFormNextServer = await fetch(`${process.env.NEXT_PUBLIC_NEXT_SERVER_URL}/api/auth/logout`, {
-                    method: 'GET',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                  });
-                  
-                  if (!resultFormNextServer.ok) {
-                    throw new Error('Login failed');
-                  }
+            console.log(data);
+            setToken(data.newAccessToken)
+            if(data.exp) {
                 return router.push('/login')
-            } 
-
+            }
         } catch (err) {
             console.error('Error in Auth fetch:', err);
         }
@@ -51,7 +30,7 @@ const RefreshTokenAuth = () => {
         ) => {
             await handle();
         }, 1000 * 60 * 2)
-
+        console.log(interval);
         return () => {
             clearInterval(interval);
         }

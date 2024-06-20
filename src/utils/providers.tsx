@@ -8,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 
 export function Providers({children} : {children: React.ReactNode}) {
     const pathname = usePathname();
-    const showNavbar = !['/login', '/register', '/new-post'].includes(pathname) && !pathname.startsWith('/p/') && !pathname.startsWith('/u/');
+    const showNavbar = !['/login', '/register', '/new-post', '/dashboard'].includes(pathname) && !pathname.startsWith('/p/') && !pathname.startsWith('/u/');
     return (
         <div>
             {showNavbar ? (

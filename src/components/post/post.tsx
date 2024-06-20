@@ -52,8 +52,8 @@ const Post = ({
                 </CardTitle>
                 <CardDescription>{category || "#untagged"}</CardDescription>
             </CardHeader>
-            <CardContent className=' container'>
-                <div className='prose prose-lg break-words overflow-hidden' >
+            <CardContent className='container'>
+                <div className='md:prose md:prose-lg break-words overflow-hidden' >
                     {parse(post.content)}
                 </div>
             </CardContent>
@@ -77,7 +77,7 @@ const Post = ({
                         </div>
                     ))}
                 </div>
-                <CommentEditor addComment={addComment} postId={postId} authorId={user?.id} />
+                {user && <CommentEditor addComment={addComment} postId={postId} authorId={user?.id} />}
             </div>
         </Card>
     );

@@ -7,6 +7,7 @@ import { DoorClosed } from 'lucide-react'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
 import { useAppContext } from '@/context/app.provider'
+import { useRouter } from 'next/navigation'
 
 interface NavItem {
   name: string
@@ -16,7 +17,7 @@ interface NavItem {
 export const navItems: NavItem[] = [
   {
     name: 'Dashboard',
-    href: '/dashboard',
+    href: '/',
   },
   {
     name: 'Create Post',
@@ -25,39 +26,27 @@ export const navItems: NavItem[] = [
 ];
 
 const UserNav = ({ name, email, image }: { name: string, email: string, image: string }) => {
-  const {logout, token} = useAppContext();
+  const {logout, token, user} = useAppContext();
   const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const router = useRouter();
   if (!Array.isArray(navItems) || navItems.length === 0) {
     return null; 
   }
   const handleLogout = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/logout`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'authorization': `Bearer ${token}`,
-        },
-        credentials: 'include',
-        cache: 'no-cache',
-      });
-      
-      if (!res.ok) {
-        throw new Error('Logout failed');
-      }
-      const resultFormNextServer = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/logout`, {
+      const resultFormNextServer = await fetch(`${process.env.NEXT_PUBLIC_NEXT_SERVER_URL}/api/auth/logout`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      
       if (!resultFormNextServer.ok) {
         throw new Error('Login failed');
       }
       logout()
       toast.success("Logged out!")
+      return router.push('/login');
     } catch (err) {
       console.log(err);
     } finally {
@@ -89,7 +78,7 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
         <DropdownMenuGroup>
           {navItems.map((item, index) => (
             <DropdownMenuItem key={index} className=''>
-              <Link href={item.href} className='w-full flex justify-between items-center  '>
+              <Link href={item.name === "Dashboard" ? `/u/${user?.id}` : `${item.href}`} className='w-full flex justify-between items-center  '>
                 <span>{item.name}</span>
               </Link>
             </DropdownMenuItem>

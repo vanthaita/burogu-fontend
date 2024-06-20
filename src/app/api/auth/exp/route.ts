@@ -1,26 +1,20 @@
 import { cookies } from 'next/headers';
 import {jwtDecode} from 'jwt-decode';
-import { differenceInHours, differenceInMinutes } from 'date-fns';
-
-interface DecodedToken {
-    exp: number;
-}
-
-async function refreshAccessToken(refreshToken: string): Promise<string> {
+import {differenceInHours, differenceInMinutes} from 'date-fns'
+async function refreshAccessToken(refreshToken: string) {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/refreshtoken`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'authorization': `Bearer ${refreshToken}`,
+                'authorization': `Bearer ${refreshToken}`
             },
         });
-
+        const data = await res.json();
         if (!res.ok) {
+            
             throw new Error('Refresh token failed');
         }
-
-        const data = await res.json();
         return data.accessToken;
     } catch (err) {
         console.error('Error refreshing access token:', err);
@@ -28,49 +22,52 @@ async function refreshAccessToken(refreshToken: string): Promise<string> {
     }
 }
 
-export async function GET(request: Request): Promise<Response> {
+export async function GET(request: Request) {
     const cookieStore = cookies();
     const accessToken = cookieStore.get('token')?.value;
     const refreshToken = cookieStore.get('refreshToken')?.value;
     const user = cookieStore.get('user')?.value;
 
-    if (!accessToken || !refreshToken || !user) {
-        return new Response(JSON.stringify({ message: "Missing tokens", exp: true }), {
+
+    if (!accessToken || !user || !refreshToken) {
+        cookies().delete('token');
+        cookies().delete('user');
+        cookies().delete('refreshToken');
+        return new Response(JSON.stringify({ message: "Missing tokens", exp: true}), {
             status: 400,
         });
     }
-
     try {
-        const decodedAccessToken = jwtDecode<DecodedToken>(accessToken);
-        const accessTokenExpiryDate = new Date(decodedAccessToken.exp * 1000);
+        const { exp } = jwtDecode<any>(accessToken);
+        const tokenExpiry = exp * 1000;
+        const tokenExpiryDate = new Date(tokenExpiry);
         const now = new Date();
-
-        const decodedRefreshToken = jwtDecode<DecodedToken>(refreshToken);
-        const refreshTokenExpiryDate = new Date(decodedRefreshToken.exp * 1000);
-
-        if (differenceInHours(refreshTokenExpiryDate, now) < 0) {
-            return new Response(JSON.stringify({ message: "Refresh token expired", exp: true }), {
+        const refreshTokenExp = jwtDecode<any>(refreshToken).exp;
+        const refreshTokenExpiry = refreshTokenExp * 1000
+        const refreshTokenExpiryDate = new Date(refreshTokenExpiry);
+        if(differenceInHours(refreshTokenExpiryDate, now) < 0) {
+            cookies().delete('token');
+            cookies().delete('user');
+            cookies().delete('refreshToken');
+            return new Response(JSON.stringify({ message: "Refresh token expired", exp: true}), {
                 status: 400,
             });
         }
 
-        if (differenceInMinutes(accessTokenExpiryDate, now) <= 2) {
+        if (differenceInMinutes(tokenExpiryDate, now) <= 2) {
             const newAccessToken = await refreshAccessToken(refreshToken);
-            cookieStore.delete('token');
-
-            return new Response(JSON.stringify({ newAccessToken, exp: false }), {
+            cookies().delete('token');
+            return new Response(JSON.stringify({ newAccessToken, exp: false}), {
                 status: 200,
                 headers: {
-                    'Set-Cookie': `token=${newAccessToken}; Path=/; SameSite=Strict; Secure; HttpOnly; Max-Age=${15 * 60}`,
-                },
+                    'Set-Cookie': `token=${newAccessToken}; Path=/; HttpOnly; Secure;SameSite=Strict; Max-Age=${15 * 60}`
+                }
             });
-        }
-
-        return new Response(JSON.stringify({ message: 'Token is still valid', exp: false }), {
+        } 
+        return new Response(JSON.stringify({ message:'Token is still valid', exp: false}), {
             status: 200,
         });
     } catch (err) {
-        console.error('Error validating tokens:', err);
         return new Response(JSON.stringify({ error: 'Invalid access token' }), {
             status: 400,
         });
