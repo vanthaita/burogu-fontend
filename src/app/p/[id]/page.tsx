@@ -4,7 +4,7 @@ import Post from '@/components/post/post'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation';
 import { useAppContext } from '@/context/app.provider';
-import { PostType } from '@/types/type';
+import { BookmarkPost, PostType } from '@/types/type';
 import { Comments } from '@/types/type';
 
 const Page = () => {
@@ -38,12 +38,12 @@ const Page = () => {
       handleGetPost();
     }
   }, [postId]);
-
+  console.log(post?.bookmarks);
   return (
     <div className="flex flex-col space-y-6 mt-6">
       <div className="container flex flex-col md:grid md:grid-cols-[70px_1fr] gap-6 md:gap-12 flex-1">
         <aside className="hidden md:flex w-[70px] flex-col">
-          <NavbarPost postId={postId as string} countVote={countVote} setCountVote={setCountVote} />
+          <NavbarPost postId={postId as string} countVote={countVote} setCountVote={setCountVote} bookmarks={post?.bookmarks as BookmarkPost[]}/>
         </aside>
         <main className="flex w-full flex-col md:flex-row gap-x-4 relative">
             <div className="flex-1">

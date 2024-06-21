@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/theme.provider";
 import { Providers } from "@/utils/providers";
 import AppProvider from "@/context/app.provider";
 import { cookies } from "next/headers";
-import RefreshTokenAuth from "@/components/refresh.token";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -42,7 +41,6 @@ export default function RootLayout({
              <AppProvider initialAccessToken={accessToken?.value} initialUser={user}>
               <Providers>
                   {children}
-                  <RefreshTokenAuth />
               </Providers>
              </AppProvider>
         </ThemeProvider>

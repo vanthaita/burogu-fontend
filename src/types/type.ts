@@ -12,7 +12,9 @@ export interface Comments {
     createdAt: string;
     updatedAt: string;
 }
-
+export interface BookmarkPost {
+    userId: string;
+  }
 export interface PostType {
     id: string;
     title: string;
@@ -22,5 +24,6 @@ export interface PostType {
     updatedAt: Date;
     author: Author;
     comments: Comments[];
+    bookmarks: BookmarkPost[],
     votes: [];
 }

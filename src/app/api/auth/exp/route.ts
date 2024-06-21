@@ -18,10 +18,14 @@ async function refreshAccessToken(refreshToken: string) {
         return data.accessToken;
     } catch (err) {
         console.error('Error refreshing access token:', err);
-        throw err;
+        return '';
     }
 }
-
+function deleteTokens() {
+    cookies().delete('token');
+    cookies().delete('user');
+    cookies().delete('refreshToken');
+}
 export async function GET(request: Request) {
     const cookieStore = cookies();
     const accessToken = cookieStore.get('token')?.value;
@@ -30,9 +34,7 @@ export async function GET(request: Request) {
 
 
     if (!accessToken || !user || !refreshToken) {
-        cookies().delete('token');
-        cookies().delete('user');
-        cookies().delete('refreshToken');
+        deleteTokens();
         return new Response(JSON.stringify({ message: "Missing tokens", exp: true}), {
             status: 400,
         });
@@ -46,9 +48,7 @@ export async function GET(request: Request) {
         const refreshTokenExpiry = refreshTokenExp * 1000
         const refreshTokenExpiryDate = new Date(refreshTokenExpiry);
         if(differenceInHours(refreshTokenExpiryDate, now) < 0) {
-            cookies().delete('token');
-            cookies().delete('user');
-            cookies().delete('refreshToken');
+            deleteTokens();
             return new Response(JSON.stringify({ message: "Refresh token expired", exp: true}), {
                 status: 400,
             });
@@ -56,6 +56,11 @@ export async function GET(request: Request) {
 
         if (differenceInMinutes(tokenExpiryDate, now) <= 2) {
             const newAccessToken = await refreshAccessToken(refreshToken);
+            if(newAccessToken === '') {
+                return new Response(JSON.stringify({ error: 'Invalid refresh token', exp: true }), {
+                    status: 400,
+                });
+            }
             cookies().delete('token');
             return new Response(JSON.stringify({ newAccessToken, exp: false}), {
                 status: 200,
@@ -68,7 +73,8 @@ export async function GET(request: Request) {
             status: 200,
         });
     } catch (err) {
-        return new Response(JSON.stringify({ error: 'Invalid access token' }), {
+        deleteTokens()
+        return new Response(JSON.stringify({ error: 'Invalid access token', exp: true }), {
             status: 400,
         });
     }

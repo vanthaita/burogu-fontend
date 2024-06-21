@@ -5,7 +5,7 @@ import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { usePathname } from "next/navigation"
 import { Toaster } from "react-hot-toast";
-
+import RefreshTokenAuth from "@/components/refresh.token";
 export function Providers({children} : {children: React.ReactNode}) {
     const pathname = usePathname();
     const showNavbar = !['/login', '/register', '/new-post', '/dashboard'].includes(pathname) && !pathname.startsWith('/p/') && !pathname.startsWith('/u/');
@@ -33,6 +33,7 @@ export function Providers({children} : {children: React.ReactNode}) {
                 </div>
             )}
             <Toaster position="top-center" reverseOrder={false} />
+            <RefreshTokenAuth />
         </div>
     );
 }

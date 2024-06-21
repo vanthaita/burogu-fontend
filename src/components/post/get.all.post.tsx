@@ -45,7 +45,7 @@ const Posts = () => {
     if(loading) {
         return <SkeletonPosts />
     }   
-
+    
     return (
         <div className=' space-y-6'>
             {posts.map((post: any, index: number) => (
@@ -59,6 +59,7 @@ const Posts = () => {
                         postId={post?.id}
                         countComments={post?.comments.length}
                         countVote={post?.votes.length}
+                        bookmarks={post?.bookmarks}
                     />
                 </div>
             ))}

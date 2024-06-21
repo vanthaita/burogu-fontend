@@ -6,8 +6,10 @@ import { Button } from '../ui/button';
 import { MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 import { calculatorTime } from '@/utils/calculator.time';
+import PostBookmark from '../post/post.bookmark';
+import { BookmarkPost } from '@/types/type';
 
-const CardPost = ({authorName, time, title, tags, authorId, postId, countComments, countVote} : {
+const CardPost = ({authorName, time, title, tags, authorId, postId, countComments, countVote, bookmarks} : {
     authorName: string,
     time: string,
     title: string,
@@ -16,6 +18,7 @@ const CardPost = ({authorName, time, title, tags, authorId, postId, countComment
     postId: string,
     countComments: number
     countVote: number
+    bookmarks: BookmarkPost[]
 }) => {
   return (
     <Card className='relative w-full'>
@@ -55,9 +58,7 @@ const CardPost = ({authorName, time, title, tags, authorId, postId, countComment
       </CardHeader>
       <CardFooter className='flex justify-between items-center'>
           <Button variant="outline" className='border-none bg-card hover:bg-gray-100 gap-x-4 flex'><MessageCircle className='h-4 w-4' /> {countComments} Comments</Button>
-        <Button variant='outline' className='border-none bg-card hover:bg-gray-100'>
-          <Bookmark />
-        </Button>
+          <PostBookmark postId={postId} bookmarks={bookmarks}/>
       </CardFooter>
     </Card>
   )

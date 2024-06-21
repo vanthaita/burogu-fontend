@@ -1,17 +1,21 @@
 'use client'
 import React, { useState } from 'react'
-import { Bookmark, ChevronUp, ChevronDown } from 'lucide-react'
+import {  ChevronUp, ChevronDown } from 'lucide-react'
 import { Button } from '../ui/button'
 import { useAppContext } from '@/context/app.provider'
+import PostBookmark from './post.bookmark'
+import { BookmarkPost } from '@/types/type'
 
 const NavbarPost = ({
   postId,
   countVote,
   setCountVote,
+  bookmarks,
 }: {
   postId: string,
   countVote: number,
   setCountVote: React.Dispatch<React.SetStateAction<number>>,
+  bookmarks: BookmarkPost[],
 }) => {
   const [vote, setVote] = useState<number | null>(null);
   const { user, token } = useAppContext();
@@ -52,9 +56,8 @@ const NavbarPost = ({
           <ChevronDown />
         </Button>
 
-        <Button variant="outline" className='rounded-full w-12 h-12 bg-card hover:bg-gray-100'>
-            <Bookmark className='hover:text-blue-500' />
-        </Button>
+        <PostBookmark postId={postId} bookmarks={bookmarks}/>
+
       </div>
       {/* Bookmark */}
      
