@@ -1,8 +1,8 @@
-# Burogu.dev - Ứng Dụng Blog Đa Người Dùng
+# Burogu.dev - Ứng Dụng Blog Đa Người Dùng - https://burogu-fontend.vercel.app/
 
 ### Công Nghệ Sử Dụng
 - **Backend**: Node.js - Express.js - Supabase(lưu trữ cơ sở dữ liệu) - Prisma (ORM)  ([GitHub Repository](https://github.com/TaThasi/burogu))
-- **Frontend**: Next.js
+- **Frontend**: Next.js - 
   - App Router
   - Server và Client component
   - API Routes và Middleware
@@ -75,7 +75,7 @@ Bookmark: Lưu trữ bài viết của người khác.
     SERVER_URL=""
     TINY_API=""
     ```
-# Backend cho Burogu
+# Backend cho Burogu ([GitHub Repository](https://github.com/TaThasi/burogu))
 
 ## Tổng Quan
 Kho lưu trữ burogu chứa dịch vụ backend cho burogu.dev (blog app). Dịch vụ này được xây dựng bằng Node.js(ExpressJs) và các công nghệ khác nhau để xử lý logic backend, bao gồm tương tác cơ sở dữ liệu, chức năng middleware và các route API.
