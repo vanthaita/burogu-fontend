@@ -33,7 +33,6 @@ export default function CommentEditor({postId, authorId, addComment} : {postId: 
             if(!res.ok) {
                 console.error('Failed to create post');
             }
-            console.log(res);
             const data = await res.json();
             addComment(data.comment);
             toast.success("Post comment successfully!");

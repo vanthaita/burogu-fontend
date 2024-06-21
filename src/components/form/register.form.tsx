@@ -49,7 +49,6 @@ export const RegisterForm = () => {
               throw new Error('Login failed');
             }
             const data = await res.json();
-            console.log(data);
             toast.success("Register successfully!");
             return router.push('/login');
         } catch (error) {

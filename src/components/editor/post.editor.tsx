@@ -58,7 +58,6 @@ export default function PostEditor() {
                 return;
             }
 
-            console.log(res);
             toast.success("Post added successfully!");
             router.push('/');
         } catch (err) {

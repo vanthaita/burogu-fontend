@@ -30,7 +30,6 @@ const Posts = () => {
                 const data = await res.json();
                 setPosts(data.posts);
                 
-                console.log(data.posts); 
             } catch (err) {
                 setLoading(true);
                 console.error(err);

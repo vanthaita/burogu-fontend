@@ -16,7 +16,6 @@ const RefreshTokenAuth = () => {
                 credentials: 'include',
             });
             const data = await res.json();
-            console.log(data);
             setToken(data.newAccessToken)
             if(data.exp) {
                 return router.push('/login')
@@ -30,7 +29,6 @@ const RefreshTokenAuth = () => {
         ) => {
             await handle();
         }, 1000 * 60 * 2)
-        console.log(interval);
         return () => {
             clearInterval(interval);
         }

@@ -38,7 +38,6 @@ const Page = () => {
       handleGetPost();
     }
   }, [postId]);
-  console.log(post?.bookmarks);
   return (
     <div className="flex flex-col space-y-6 mt-6">
       <div className="container flex flex-col md:grid md:grid-cols-[70px_1fr] gap-6 md:gap-12 flex-1">

@@ -27,7 +27,6 @@ const Page = () => {
               body: JSON.stringify({ userId  }),
             });
             const data = await res.json();
-            console.log(data);
             setProfile(data.user);
             setCheckFriend(data.user.followers.includes(user?.id));
           } catch (err) {
@@ -60,7 +59,6 @@ const Page = () => {
             credentials: 'include',
           });
           const data = await res.json();
-          console.log(data);
           setCheckFriend(action === 'add');
         } catch (err) {
           console.log(err);
@@ -124,6 +122,7 @@ const Page = () => {
                           postId={post?.id}
                           countComments={post?.comments.length}
                           countVote={post?.votes.length}
+                          bookmarks={post?.bookmarks}
                       />
                     </div>
                   )) : (
