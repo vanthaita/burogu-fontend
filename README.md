@@ -1,7 +1,8 @@
 # Burogu.dev - Ứng Dụng Blog Đa Người Dùng
 
-[Link Demo Ứng Dụng](https://burogu-fontend.vercel.app/)
-[Video Demo Ứng Dụng](https://www.youtube.com/watch?v=lxkugvKfWcE)
+[Link Demo Ứng Dụng](https://burogu-fontend.vercel.app/).
+
+[Video Demo Ứng Dụng](https://www.youtube.com/watch?v=lxkugvKfWcE).
 
 ## Giới Thiệu
 
