@@ -12,7 +12,7 @@ export async function GET(request: Request) {
 
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/logout`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${refreshToken}`,

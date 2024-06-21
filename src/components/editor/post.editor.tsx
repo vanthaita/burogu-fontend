@@ -12,12 +12,11 @@ import { Loader2 } from 'lucide-react';
 import { z } from 'zod';
 
 const formSchema = z.object({
-    title: z.string().nonempty("Title cannot be empty"),
-    tags: z.string()
-        .nonempty("Tags cannot be empty")
+    title: z.string().min(1),
+    tags: z.string().min(1)
         .transform((val) => val.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0))
-        .refine((tags) => tags.length <= 10, {
-            message: "You can only have up to 10 tags",
+        .refine((tags) => tags.length <= 5, {
+            message: "You can only have up to 5 tags",
         }),
 });
 

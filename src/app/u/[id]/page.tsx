@@ -67,7 +67,6 @@ const Page = () => {
         }
     }
     return (
-
         <div className='container mt-10 p-4 rounded-md bg-white dark:bg-transparent mb-10'>
             <div className='flex items-center space-x-4 justify-between mt-4'>
                 <div className='flex items-center space-x-4'>
