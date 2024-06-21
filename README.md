@@ -1,10 +1,12 @@
 # Burogu.dev - Ứng Dụng Blog Đa Người Dùng
 
-[Link Demo Ứng Dụng](https://burogu-fontend.vercel.app/)
+[Link Demo Ứng Dụng](https://burogu-fontend.vercel.app/).
+
+[Video Demo Ứng Dụng](https://www.youtube.com/watch?v=lxkugvKfWcE).
 
 ## Giới Thiệu
 
-Burogu.dev là một ứng dụng blog đa người. Ứng dụng cho phép người dùng đăng ký tài khoản, tạo và quản lý các bài viết, bình luận, và tương tác với các nội dung từ người dùng khác.
+Burogu.dev là một ứng dụng blog đa người dùng. Ứng dụng cho phép người dùng đăng ký tài khoản, tạo và quản lý các bài viết, bình luận, và tương tác với các nội dung từ người dùng khác.
 
 ### Công Nghệ Sử Dụng
 - **Backend**: Node.js, Express.js, Supabase (lưu trữ cơ sở dữ liệu), Prisma (ORM)  
@@ -15,14 +17,14 @@ Burogu.dev là một ứng dụng blog đa người. Ứng dụng cho phép ngư
   - API Routes và Middleware  
   [GitHub Repository Frontend](https://github.com/TaThasi/burogu-fontend)
 - **Xác Thực**: JWT (JSON Web Tokens)
-- **Giao Diện**: Tailwind CSS
-- **Thành Phần UI**: Shadcn-UI
+- **Giao Diện**: Tailwindcss
+- **Thành Phần UI**: shadcn/ui
 - **Trình Soạn Thảo WYSIWYG**: TinyMCE
 - **Forms**: React-Hook-Forms
 - **Thông Báo (Toasts)**: React-Hot-Toast
 - **Xác Thực Dữ Liệu**: Zod
 - **Biểu Tượng**: Lucide-Icon
-- **Ngôn Ngữ**: TypeScript
+- **Ngôn Ngữ**: Typescript
 
 ## Chức Năng
 
