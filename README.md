@@ -1,7 +1,7 @@
 # Burogu.dev - Ứng Dụng Blog Đa Người Dùng
 
 ## Công Nghệ Sử Dụng
-- **Backend**: Node.js - Express.js ([GitHub Repository](https://github.com/TaThasi/burogu))
+- **Backend**: Node.js - Express.js - Supabase(lưu trữ cơ sở dữ liệu) - Prisma (ORM)  ([GitHub Repository](https://github.com/TaThasi/burogu))
 - **Frontend**: Next.js
   - App Router
   - Server và Client component
