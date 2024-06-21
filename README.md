@@ -17,12 +17,12 @@
 - **Ngôn Ngữ**: TypeScript
 
 ### Fontend 
-
+![screencapture-burogu-fontend-vercel-app-login-2024-06-21-13_12_22](https://github.com/TaThasi/burogu-fontend/assets/120630656/5de88ca8-b197-44db-a22d-c4898da0031d)
+![screencapture-burogu-fontend-vercel-app-register-2024-06-21-13_16_09](https://github.com/TaThasi/burogu-fontend/assets/120630656/655058a1-4043-4af6-a0e5-6f9e08d6018f)
 ![screencapture-burogu-fontend-vercel-app-2024-06-21-13_12_44](https://github.com/TaThasi/burogu-fontend/assets/120630656/c6710f8e-903c-467c-9571-e27f12a584d0)
 ![screencapture-burogu-fontend-vercel-app-new-post-2024-06-21-13_12_55](https://github.com/TaThasi/burogu-fontend/assets/120630656/b06f10e7-2e35-460f-a954-25eabd9bceb0)
 ![screencapture-burogu-fontend-vercel-app-p-00772c48-919a-48e9-a116-74201e43bea1-2024-06-21-13_13_22](https://github.com/TaThasi/burogu-fontend/assets/120630656/33198e4d-ed94-47bd-9326-a12e12e19b6d)
 ![screencapture-burogu-fontend-vercel-app-u-05776465-a0f5-4f0b-a831-10af507c4723-2024-06-21-13_13_45](https://github.com/TaThasi/burogu-fontend/assets/120630656/2766e43a-84e1-4c6d-9152-10c0e1db21e2)
-![screencapture-burogu-fontend-vercel-app-login-2024-06-21-13_12_22](https://github.com/TaThasi/burogu-fontend/assets/120630656/5de88ca8-b197-44db-a22d-c4898da0031d)
 
 ### Chức năng
 
