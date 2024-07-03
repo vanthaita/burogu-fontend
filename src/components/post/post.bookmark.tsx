@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
-import { Bookmark } from 'lucide-react';
+import { Bookmark, Loader2 } from 'lucide-react';
 import { useAppContext } from '@/context/app.provider';
 import { BookmarkPost } from '@/types/type';
 
@@ -56,7 +56,11 @@ const PostBookmark = ({
       onClick={handleBookmark}
       disabled={isLoading}
     >
-      <Bookmark />
+      {isLoading ? 
+        <Loader2 className=' w-4 h-4 animate-spin'/>
+          : 
+        <Bookmark />
+      }
     </Button>
   );
 };

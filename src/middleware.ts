@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-const privatePath = ['/dashboard', '/new-post'];
+const privatePath = ['/dashboard', '/new-post'] ;
 const authPath = ['/login', '/register'];
 
 export function middleware(request: NextRequest) {
@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
     }
 
     if (token && authPath.some((path) => pathname.startsWith(path))) {
-        return NextResponse.redirect(new URL('/profile', request.url));
+        return NextResponse.redirect(new URL('/dashboard', request.url));
     }
 
     if (token && privatePath.some((path) => pathname.startsWith(path))) {
@@ -24,5 +24,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/profile', '/login', '/register', '/new-post']
+    matcher: ['/dashboard', '/login', '/register', '/new-post']
 };

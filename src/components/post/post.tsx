@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
 import CommentEditor from '../editor/comment.editor';
@@ -8,7 +9,6 @@ import SkeletonPost from '../skeletons/skeleton.post';
 import { Comments, PostType } from '@/types/type';
 import { calculatorTime } from '@/utils/calculator.time';
 import parse from 'html-react-parser'
-
 const Post = ({
     postId,
     post,
@@ -31,7 +31,7 @@ const Post = ({
 
     const { author, createdAt, title, category, content } = post;
     const time = new Date(createdAt).toLocaleString();
-
+    const cleanContent = DOMPurify.sanitize(post.content);
     return (
         <Card className='relative mb-10 container max-w-full'>
             <CardHeader className='flex flex-col space-x-2'>
@@ -62,7 +62,7 @@ const Post = ({
             </CardHeader>
             <CardContent className='container'>
                 <div className='md:prose md:prose-lg break-words overflow-hidden' >
-                    {parse(post.content)}
+                    {parse(cleanContent)}
                 </div>
             </CardContent>
             <div className='p-4'>
@@ -79,13 +79,15 @@ const Post = ({
                             <div className='border w-full rounded-md px-6 py-4 break-words' style={{ wordBreak: 'break-word', whiteSpace: 'normal' }}>
                                 <span className='text-lg font-medium'>{comment?.author?.username}</span>
                                 <div className="max-w-[50%]">
-                                    {parse(comment.content)} 
+                                    {parse(DOMPurify.sanitize(comment.content))}
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
-                {user && <CommentEditor addComment={addComment} postId={postId} authorId={user?.id} />}
+                {user ? (<CommentEditor addComment={addComment} postId={postId} authorId={user?.id} />) :
+                    (<div>Please login to comment!</div>)
+                }
             </div>
         </Card>
     );

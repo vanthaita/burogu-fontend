@@ -18,7 +18,7 @@ const RefreshTokenAuth = () => {
             const data = await res.json();
             setToken(data.newAccessToken)
             if(data.exp) {
-                return router.push('/login')
+                return router.push('/')
             }
         } catch (err) {
             console.error('Error in Auth fetch:', err);

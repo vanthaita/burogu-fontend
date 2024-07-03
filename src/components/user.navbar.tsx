@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, DropdownMenuItem } from './ui/dropdown-menu'
 import { Button } from './ui/button'
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar'
-import { DoorClosed } from 'lucide-react'
+import { DoorClosed, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
 import { useAppContext } from '@/context/app.provider'
@@ -86,8 +86,17 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem className='w-full flex justify-between items-center'>
-          <button className=' border-none' onClick={handleLogout}><span>Logout</span></button>
-          <span><DoorClosed className='w-4 h-4' /></span>
+          {isLoading ? 
+            <div className=' flex justify-center items-center gap-x-2'>
+              <Loader2 className=' w-4 h-4 animate-spin'/>
+              <button className=' border-none'><span>loading...</span></button>
+
+            </div>
+            :
+            <>
+              <button className=' border-none' onClick={handleLogout}><span>Logout</span></button>
+              <span><DoorClosed className='w-4 h-4' /></span>
+            </>}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
