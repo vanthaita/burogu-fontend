@@ -8,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 import RefreshTokenAuth from "@/components/refresh.token";
 export function Providers({children} : {children: React.ReactNode}) {
     const pathname = usePathname();
-    const showNavbar = !['/login', '/register', '/new-post', '/dashboard'].includes(pathname) && !pathname.startsWith('/p/') && !pathname.startsWith('/u/');
+    const showNavbar = !['/login', '/register', '/new-post', '/dashboard'].includes(pathname) && !pathname.startsWith('/p/') && !pathname.startsWith('/u/') && !pathname.startsWith('/profile/');
     return (
         <div>
             {showNavbar ? (

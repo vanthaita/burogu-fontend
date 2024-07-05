@@ -16,6 +16,10 @@ interface NavItem {
 
 export const navItems: NavItem[] = [
   {
+    name: 'Profile',
+    href: '/profile',
+  },
+  {
     name: 'Dashboard',
     href: '/',
   },
