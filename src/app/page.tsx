@@ -1,6 +1,6 @@
 'use client'
 import CardPost from "@/components/card/card.post";
-import HomeNavbar from "@/components/home.navbar";
+import HomeNavbar from "@/components/navbar/home.navbar";
 import Posts from "@/components/post/get.all.post";
 import { Button } from "@/components/ui/button";
 export default function Home() {

@@ -21,7 +21,7 @@ const CardPost = ({authorName, time, title, tags, authorId, postId, countComment
     bookmarks: BookmarkPost[]
 }) => {
   return (
-    <Card className='relative w-full'>
+    <Card className='relative w-full border-2 border-gray-500 shadow-md'>
       <CardHeader className='flex flex-row gap-x-2'>
           <div className='mt-[14px]'>
             <Link href={`/u/${authorId}`}>

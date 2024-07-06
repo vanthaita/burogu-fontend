@@ -1,11 +1,13 @@
 import React from 'react'
 
 const page = () => {
-  return (
-    <main className=' h-screen'>
+    
+    return (
+        <div>
 
-    </main>
-  )
+
+        </div>
+    )
 }
 
 export default page

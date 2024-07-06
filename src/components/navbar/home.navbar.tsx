@@ -31,7 +31,7 @@ const HomeNavbar = () => {
         {navItems.map((item, index) => (
             <Link key={index} href={item.href}>
                 <span className={cn(
-                    `group flex items-center rounded-md px-3 py-2 text-lg font-medium hover:underline hover:bg-white hover:text-blue-500
+                    `group flex items-center rounded-md px-3 py-2 text-sm font-medium border-2 border-gray-500 shadow-md hover:underline hover:bg-white hover:text-blue-500
                       ${pathname === item.href? 'font-bold' : ''}
                     `, 
                 )}>

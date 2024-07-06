@@ -1,8 +1,8 @@
 'use client'
 
-import DashboardNavbar from "@/components/dashboard.navbar";
+import DashboardNavbar from "@/components/navbar/dashboard.navbar";
 import Footer from "@/components/footer";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/navbar/navbar";
 import { usePathname } from "next/navigation"
 import { Toaster } from "react-hot-toast";
 import RefreshTokenAuth from "@/components/refresh.token";
