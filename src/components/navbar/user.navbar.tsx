@@ -82,7 +82,7 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
         <DropdownMenuGroup>
           {navItems.map((item, index) => (
             <DropdownMenuItem key={index} className=''>
-              <Link href={item.name === "Dashboard" ? `/u/${user?.id}` : `${item.href}`} className='w-full flex justify-between items-center  '>
+              <Link href={item.name === "Dashboard" ? `/u/${user?.id}` : `/profile/${user?.id}`} className='w-full flex justify-between items-center  '>
                 <span>{item.name}</span>
               </Link>
             </DropdownMenuItem>

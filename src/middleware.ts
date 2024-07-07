@@ -1,19 +1,20 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-const privatePath = ['/dashboard', '/new-post', '/profile'] ;
+const privatePath = ['/new-post/', '/profile/', '/followings'];
 const authPath = ['/login', '/register'];
 
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
     const token = request.cookies.get('token')?.value;
-    
+    // console.log(token);
+
     if (!token && privatePath.some((path) => pathname.startsWith(path))) {
         return NextResponse.redirect(new URL('/login', request.url));
     }
 
     if (token && authPath.some((path) => pathname.startsWith(path))) {
-        return NextResponse.redirect(new URL('/dashboard', request.url));
+        return NextResponse.redirect(new URL('/', request.url));
     }
 
     if (token && privatePath.some((path) => pathname.startsWith(path))) {
@@ -24,5 +25,13 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/dashboard', '/login', '/register', '/new-post', '/profile']
+    matcher: [
+        '/login',
+        '/register',
+        '/followings',
+        '/new-post',
+        '/profile',
+        '/new-post/:path*',
+        '/profile/:path*',
+    ]
 };

@@ -1,5 +1,5 @@
 'use client'
-import NavbarPost from '@/components/post/navbar.post'
+import NavbarPost from '@/components/navbar/navbar.post'
 import Post from '@/components/post/post'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation';

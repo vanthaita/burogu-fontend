@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Editor } from '@tinymce/tinymce-react';
@@ -12,7 +12,7 @@ import { Loader2 } from 'lucide-react';
 import { z } from 'zod';
 
 const formSchema = z.object({
-    title: z.string().min(1),
+    title: z.string().min(1, "Title is required"),
     tags: z.string().min(1)
         .transform((val) => val.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0))
         .refine((tags) => tags.length <= 5, {
@@ -22,7 +22,21 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function PostEditor() {
+export default function PostEditor({
+    title,
+    tags,
+    authorId,
+    postId,
+    content,
+    isEditing,
+}: {
+    title: string | undefined,
+    tags: string[] | undefined,
+    authorId: string | undefined,
+    postId: string | undefined,
+    content: string | undefined,
+    isEditing: boolean | undefined,
+}) {
     const editorRef = useRef<any | null>(null);
     const { user, token } = useAppContext();
     const router = useRouter();
@@ -31,6 +45,13 @@ export default function PostEditor() {
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(formSchema)
     });
+
+    useEffect(() => {
+        if (title) setValue('title', title);
+        
+        if (tags) setValue('tags', tags);
+    }, [title, tags, setValue]);
+    
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
         setIsLoading(true);
@@ -83,8 +104,6 @@ export default function PostEditor() {
                     required
                 />
                 {errors.title && <p className="error">{errors.title.message}</p>}
-
-                
                 {errors.tags && <p className="error">{errors.tags.message}</p>}
 
                 <div className='flex gap-x-2'>
@@ -119,6 +138,7 @@ export default function PostEditor() {
                 id='post-editor'
                 apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
                 onInit={(evt: any, editor: any) => editorRef.current = editor}
+                initialValue={isEditing && content ? content : ''}
                 init={{
                     height: 500,
                     menu: {
@@ -130,7 +150,6 @@ export default function PostEditor() {
                         'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
                         'media', 'table', 'emoticons', 'help'
                     ],
-                    ai_request: (request: any, respondWith: any) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
                     toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons',
                     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px } .highlight {background-color: #fff877;',
                 }}

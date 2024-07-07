@@ -15,12 +15,12 @@ interface NavItem {
 export const navItems: NavItem[] = [
   {
     name: 'Posts',
-    href: '/',
+    href: '/profile',
     icon: LucideHome,
   },
   {
     name: 'Bookmarks',
-    href: '/profile',
+    href: '/bookmarks',
     icon: LucideUser,
   },
   {
@@ -32,15 +32,15 @@ export const navItems: NavItem[] = [
 
 const ProfileNavbar = () => {
   const pathname = usePathname();
-
+  
   return (
     <nav className="grid items-start gap-4 rounded-md 2">
       {navItems.map((item, index) => (
         <Link key={index} href={item.href}>
           <span
             className={cn(
-              'flex items-center rounded-md px-3  border-2 border-gray-500 shadow-md  py-2 text-sm font-medium hover:underline hover:bg-accent hover:accent-foreground',
-              { 'bg-accent text-accent-foreground': pathname === item.href }
+              'flex items-center rounded-md px-3 border-2 border-gray-500 shadow-md py-2 text-sm font-medium hover:underline hover:bg-accent hover:accent-foreground',
+              { 'bg-accent text-accent-foreground': pathname.startsWith(item.href) }
             )}
           >
             <item.icon className="h-4 w-4 text-primary mr-2" />

@@ -17,7 +17,7 @@ const Navbar = () => {
 
                 { user !== null ? (
                 <div className='flex items-center gap-x-2 md:gap-x-3 lg:gap-x-5'>
-                    <Link href="/new-post">
+                    <Link href={`/new-post/${user.id}`}>
                         <Button className=' text-sm md:text-base lg:text-lg hover:bg-blue-500 hover:text-white hover:underline border-blue-700 hidden md:flex bg-card dark:bg-card-dark ' variant='outline'>Create Post</Button>
                     </Link>
                     <Button variant='outline' className='border-none bg-card dark:bg-card-dark'>

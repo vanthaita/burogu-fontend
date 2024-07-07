@@ -1,5 +1,4 @@
 'use client'
-
 import DashboardNavbar from "@/components/navbar/dashboard.navbar";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar/navbar";
@@ -8,10 +7,15 @@ import { Toaster } from "react-hot-toast";
 import RefreshTokenAuth from "@/components/refresh.token";
 export function Providers({children} : {children: React.ReactNode}) {
     const pathname = usePathname();
-    const showNavbar = !['/login', '/register', '/new-post', '/dashboard'].includes(pathname) && !pathname.startsWith('/p/') && !pathname.startsWith('/u/') && !pathname.startsWith('/profile/');
+    const showNavbarAndFooter =
+        !pathname.startsWith('/new-post/') && // không bắt đầu bằng '/new-post/'
+        !['/login', '/register', '/dashboard'].includes(pathname) && // không nằm trong các route này
+        !pathname.startsWith('/p/') && // không bắt đầu bằng '/p/'
+        !pathname.startsWith('/u/') && // không bắt đầu bằng '/u/'
+        !pathname.startsWith('/profile/'); // không bắt đầu bằng '/profile/'
     return (
         <div>
-            {showNavbar ? (
+            {showNavbarAndFooter ? (
                 <>
                     <Navbar />
                     <div className="flex flex-col space-y-6 mt-6">
@@ -27,9 +31,9 @@ export function Providers({children} : {children: React.ReactNode}) {
                 </>
             ) : (
                 <div>
-                    {pathname !== '/new-post' && pathname !== '/login' && pathname !== '/register' && <Navbar /> }
+                    {!pathname.startsWith('/new-post/')  && pathname !== '/login' && pathname !== '/register' && <Navbar /> }
                     {children}
-                    {pathname !== '/login' && pathname !== '/register' && pathname !== '/new-post' && <Footer />}
+                    {!pathname.startsWith('/new-post/') && pathname !== '/login' && pathname !== '/register' && pathname !== '/new-post' && <Footer />}
                 </div>
             )}
             <Toaster position="top-center" reverseOrder={false} />

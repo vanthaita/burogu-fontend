@@ -80,13 +80,14 @@ const navbarSocial: NavItem[] = [
 ] 
 
 const DashboardNavbar = () => {
+  const pathname = usePathname()
   return (
     <nav className=' grid items-start gap-4 rounded-md'>
       {navItems.map((item, index) => (
           <Link key={index} href={item.href}>
               <span className={cn(
                   `group flex items-center rounded-md px-3 py-2 text-sm border-2 border-gray-500 shadow-md font-medium hover:underline hover:bg-accent hover:accent-foreground 
-                  `, 
+                  `, { 'bg-accent text-accent-foreground': pathname.startsWith(item.href) }
               )}>
                   {/* {item && <item.icon className='mr-2 h-4 w-4 text-primary'/>} */}
                   <item.icon className='h-4 w-4 text-primary mr-2' />

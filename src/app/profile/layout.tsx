@@ -8,7 +8,7 @@ const ProfilePage = ({children} : {children: React.ReactNode}) => {
         <aside className="hidden md:flex w-[70px] flex-col">
           <ProfileNavbar />
         </aside>
-        <main className="flex w-full flex-col md:flex-row gap-x-4 relative border-2 shadow-md rounded-md px-2 py-2 mb-6 border-gray-500">
+        <main className="flex w-full flex-col md:flex-row gap-x-4 relative px-4 mb-6">
           {children}
         </main>
       </div>

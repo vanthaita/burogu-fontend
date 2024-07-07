@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import {  ChevronUp, ChevronDown, Loader2 } from 'lucide-react'
 import { Button } from '../ui/button'
 import { useAppContext } from '@/context/app.provider'
-import PostBookmark from './post.bookmark'
+import PostBookmark from '../post/post.bookmark'
 import { BookmarkPost } from '@/types/type'
 
 const NavbarPost = ({
@@ -61,7 +61,7 @@ const NavbarPost = ({
         >
           { isLoading && vote === -1 ? 
           <Loader2 className="w-4 h-4 animate-spin"/>
-          : <ChevronDown />
+            : <ChevronDown />
           }
         </Button>
 
