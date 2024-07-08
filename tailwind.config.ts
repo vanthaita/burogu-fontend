@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      boxShadow: {
+        neumorphic: '7px 7px 14px #bebebe, -7px -7px 14px #ffffff',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

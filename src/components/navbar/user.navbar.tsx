@@ -11,31 +11,29 @@ import { useRouter } from 'next/navigation'
 
 interface NavItem {
   name: string
-  href: string
+  href: (id: string) => string
 }
 
 export const navItems: NavItem[] = [
   {
     name: 'Profile',
-    href: '/profile',
-  },
-  {
-    name: 'Dashboard',
-    href: '/',
+    href: (id: string) => `/dashboard/profile/${id}`,
   },
   {
     name: 'Create Post',
-    href: '/new-post',
+    href: (id: string) => `/new-post/${id}`,
   },
 ];
 
 const UserNav = ({ name, email, image }: { name: string, email: string, image: string }) => {
-  const {logout, token, user} = useAppContext();
+  const { logout, token, user } = useAppContext();
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const router = useRouter();
+
   if (!Array.isArray(navItems) || navItems.length === 0) {
-    return null; 
+    return null;
   }
+
   const handleLogout = async () => {
     setIsLoading(true);
     try {
@@ -46,10 +44,10 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
         },
       });
       if (!resultFormNextServer.ok) {
-        throw new Error('Login failed');
+        throw new Error('Logout failed');
       }
-      logout()
-      toast.success("Logged out!")
+      logout();
+      toast.success("Logged out!");
       return router.push('/login');
     } catch (err) {
       console.log(err);
@@ -60,7 +58,6 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
 
   return (
     <DropdownMenu>
-
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className='relative h-10 w-10 rounded-full'>
           <Avatar className='h-10 w-10 rounded-full'>
@@ -82,7 +79,7 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
         <DropdownMenuGroup>
           {navItems.map((item, index) => (
             <DropdownMenuItem key={index} className=''>
-              <Link href={item.name === "Dashboard" ? `/u/${user?.id}` : `/profile/${user?.id}`} className='w-full flex justify-between items-center  '>
+              <Link href={item.href(user?.id as string)} className='w-full flex justify-between items-center'>
                 <span>{item.name}</span>
               </Link>
             </DropdownMenuItem>
@@ -94,7 +91,6 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
             <div className=' flex justify-center items-center gap-x-2'>
               <Loader2 className=' w-4 h-4 animate-spin'/>
               <button className=' border-none'><span>loading...</span></button>
-
             </div>
             :
             <>
@@ -107,4 +103,4 @@ const UserNav = ({ name, email, image }: { name: string, email: string, image: s
   )
 }
 
-export default UserNav
+export default UserNav;

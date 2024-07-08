@@ -9,10 +9,10 @@ export function Providers({children} : {children: React.ReactNode}) {
     const pathname = usePathname();
     const showNavbarAndFooter =
         !pathname.startsWith('/new-post/') && // không bắt đầu bằng '/new-post/'
-        !['/login', '/register', '/dashboard'].includes(pathname) && // không nằm trong các route này
+        !['/login', '/register', ].includes(pathname) && // không nằm trong các route này
         !pathname.startsWith('/p/') && // không bắt đầu bằng '/p/'
         !pathname.startsWith('/u/') && // không bắt đầu bằng '/u/'
-        !pathname.startsWith('/profile/'); // không bắt đầu bằng '/profile/'
+        !pathname.startsWith('/dashboard/'); // không bắt đầu bằng '/profile/'
     return (
         <div>
             {showNavbarAndFooter ? (

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-const privatePath = ['/new-post/', '/profile/', '/followings'];
+const privatePath = ['/new-post/', '/dashboard', '/followings'];
 const authPath = ['/login', '/register'];
 
 export function middleware(request: NextRequest) {
@@ -30,8 +30,9 @@ export const config = {
         '/register',
         '/followings',
         '/new-post',
-        '/profile',
+        '/dashboard',
         '/new-post/:path*',
         '/profile/:path*',
+        '/dashboard/:path*',
     ]
 };
