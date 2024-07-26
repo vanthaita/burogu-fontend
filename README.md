@@ -137,7 +137,7 @@ Các thư mục và tệp chính trong dự án như sau:
     PORT=
     CLIENT_URL=""
     DATABASE_URL=""
-    DIRECT_URL="p"
+    DIRECT_URL=""
     ```
 
 4. **Chạy Migration Cơ Sở Dữ Liệu**
