@@ -38,27 +38,43 @@ const Page = () => {
       handleGetPost();
     }
   }, [postId]);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <div className="flex flex-col space-y-6 mt-6">
-      <div className="container flex flex-col md:grid md:grid-cols-[70px_1fr] gap-6 md:gap-12 flex-1">
+      <div className="md:container flex flex-col md:grid md:grid-cols-[70px_1fr] gap-6 md:gap-12 flex-1">
         <aside className="hidden md:flex w-[70px] flex-col">
-          <NavbarPost postId={postId as string} countVote={countVote} setCountVote={setCountVote} bookmarks={post?.bookmarks as BookmarkPost[]}/>
+          <NavbarPost postId={postId as string} countVote={countVote} setCountVote={setCountVote} bookmarks={post?.bookmarks as BookmarkPost[]} />
         </aside>
         <main className="flex w-full flex-col md:flex-row gap-x-4 relative">
-            <div className="flex-1">
-                <Post postId={postId as string} post={post as PostType} listComment={listComment} setListComment={setListComment} />
+          <div className="flex-1">
+            <Post postId={postId as string} post={post as PostType} listComment={listComment} setListComment={setListComment} />
+          </div>
+          <div className='w-[30%] h-full'>
+            <div className="w-[30%] h-[40vh] md:absolute md:right-0 md:top-0 hidden md:block">
+              <div className='border rounded-md px-6 h-full'>
+                {/* Quang cao */}
+              </div>
             </div>
-            <div className='w-[30%] h-full'>
-                <div className="w-[30%] h-[40vh] md:absolute md:right-0 md:top-0 hidden md:block">
-                    <div className='border rounded-md px-6 h-full'>
-                      {/* Quang cao */}
-                    </div>
-                </div>
-            </div>
+          </div>
         </main>
       </div>
+
+      <button
+        onClick={scrollToTop}
+        className="fixed bottom-4 right-4 px-2 py-1 bg-black text-white rounded-full shadow-md hover:bg-gray-800"
+        >
+        <span className="block md:hidden">↑</span>
+        <span className="hidden md:block">↑ {'Back to Top'}</span>
+        </button>
     </div>
   )
 }
 
-export default Page
+export default Page;

@@ -28,7 +28,7 @@ const Navbar = () => {
                         email={user.email}
                         image={'https://github.com/shadcn.png'}
                     />
-                    <ThemeToggle />
+                    {/* <ThemeToggle /> */}
                     </div>
                 ) : (
                 <div className='flex items-center gap-x-2 md:gap-x-3 lg:gap-x-5'>
